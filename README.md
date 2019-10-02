@@ -8,29 +8,43 @@ Build a streaming application which reads data from realtime bitcoin transaction
 
 
 /show_transactions/
+
 Display latest 100 transactions
 
 
 /transactions_count_per_minute/{min_value}
+
 Display number of transactions per minute for the last hour
 
 Example:
+
 minute counts
+
 1:01   102
+
 1:02   98
+
 1:03   113
+
 ...
+j
 ...
 
 
 /high_value_addr
+
 Display the bitcoin addresses which has the most aggregate value in transactions in the last 3 hours.
 
 Example:
+
 address                                 total_value
+
 35wEodJ1x64uUy3PkenD1gT3tnrHhQSNTG      1790000
+
 3AL3peHJm1FpFAQ1Hp9rFBmt2cbp1deXHX      490000
+
 ...
+
 ...
 
 

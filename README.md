@@ -56,6 +56,8 @@ It is assumed that kafka and zookeeper are already setup and it is running. Ther
 The producer will listen to wss://ws.blockchain.info/inv websocket for bitcoin transactions. It will post the transactions to the topic 'bitcoin_transactions', if the topic is not already present it will create new topic 'bitcoin_transactions' with three partitions and one replica, then it will start posting the transaction data to kafka. Messages are routed to partitions
 based on minute of the timestamp in the message.
 
+`python blockchain_stream/manage.py producer`
+
 
 ### Consumers
 There are three consumer groups for consuming transaction data from kafka.
@@ -71,15 +73,25 @@ The consumer will keep a count of messages for current minute of the transaction
 next minute is received, the message count is stored in redis. As there are three partitions, most of the time no messages
 will be processed by the same consumer for sequential minutes.
 
+`python blockchain_stream/manage.py consumer_transactions_per_minute`
+
 
 #### Consumer group for storing aggregated value for bitcoin addresses.
 There will be one consumer in this consumer group, if required more consumers can be created. It stores the aggregated value
 per bitcoin address in redis.
 
+`python blockchain_stream/manage.py consumer_agg_values`
+
 
 ### Consumer group for storing transactions.
 There will be one consumer in this consumer group, if required more consumers can be created. It stores the transactions according to the hash and timestamp of the transaction.
 
+`python blockchain_stream/manage.py consumer_store_transactions`
+
+
+## Supervisor
+Using supervisor we can run producer and consumers.
+`supervisord -c supervisor/supervisord.conf`
 
 
 ## TODO:
